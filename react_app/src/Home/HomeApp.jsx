@@ -1,9 +1,16 @@
-import React from 'react'
+import '../App.css';
+import CarouselGroup from './components/CarouselGroup';
+import Gallery from './components/Gallery';
 
-const HomeApp = () => {
+function HomeApp() {
   return (
-    <div></div>
-  )
+    <>
+      <CarouselGroup/>
+      <Gallery/>
+
+
+    </>
+  );
 }
 
 export default HomeApp;
