@@ -28,7 +28,7 @@ const Header = () => {
             <a className="mr-5 hover:text-gray-900 cursor-pointer ">Stats</a>
             <a className="mr-5 hover:text-gray-900 cursor-pointer ">News</a>
             <a href="/signertype" className="mr-5 hover:text-gray-900">
-              Sign In
+              Sign Up
             </a>
             <a href="/login" className="mr-5 hover:text-gray-900">
               Login
