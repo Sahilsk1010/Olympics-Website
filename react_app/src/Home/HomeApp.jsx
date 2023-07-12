@@ -5,8 +5,8 @@ import Gallery from './components/Gallery';
 function HomeApp() {
   return (
     <>
-      <CarouselGroup/>
-      <Gallery/>
+        <CarouselGroup/>
+        <Gallery/>
 
 
     </>
