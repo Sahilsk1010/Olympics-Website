@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import photo from '../../img/dummy.jpg';
+import './imageMove.css';
 
 import UniCarousel from './UniCarousel';
 
@@ -13,24 +15,48 @@ const Hero = () => {
     },
     desktop: {
       breakpoint: { max: 3000, min: 464 },
-      items: 2
+      items: 3
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
       items: 1
     }
   };
+
+  const [img,setImg]=useState("");
+
+  const handleCallback=(childimg)=>{
+    setImg(childimg);
+  }
+
+  const removeZoom=()=>{
+    setImg("")
+  }
+
   return (
     <>
-    <Carousel responsive={responsive} swipeable={false} draggable={false} showDots={true} ssr={true} autoPlaySpeed={1000} keyBoardControl={true} className='mb-5'>
-      <UniCarousel/>
-      <UniCarousel/>
-      <UniCarousel/>
-      <UniCarousel/>
-      <UniCarousel/>
-    </Carousel>
+      <div className='carousel-container'>
+
+      <Carousel responsive={responsive} swipeable={false} draggable={false} showDots={true} ssr={true} autoPlaySpeed={1000} keyBoardControl={true} className='mb-5'>
+        <UniCarousel parentCallback={handleCallback}/>
+        <UniCarousel parentCallback={handleCallback} />
+        <UniCarousel parentCallback={handleCallback}/>
+        <UniCarousel parentCallback={handleCallback}/>
+        <UniCarousel parentCallback={handleCallback}/>
+      </Carousel>
+
+      {
+        img!==""?
+          <div className='popup-img'>
+            <span onClick={removeZoom}>&times;</span>
+            <img src={img} alt='Img'></img>
+          </div>
+          :""
+      }
+      </div>
+
     </>
   )
 }
 
-export default Hero
+export default Hero;
