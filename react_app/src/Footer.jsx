@@ -1,81 +1,177 @@
-import React from 'react'
+import React from "react";
+import olylogo from "./img/logo2.png";
 
 const Footer = () => {
   return (
     <>
-        <footer className="text-white-600 body-font bg-slate-200">
-    <div className="container px-5 py-24 mx-auto">
-      <div className="flex flex-wrap md:text-left text-center order-first">
-        <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-          <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
-          <nav className="list-none mb-10">
-            <li>
-              <a className="text-gray-600 hover:text-gray-800">First Link</a>
-            </li>
-            <li>
-              <a className="text-gray-600 hover:text-gray-800">Second Link</a>
-            </li>
-            <li>
-              <a className="text-gray-600 hover:text-gray-800">Third Link</a>
-            </li>
-            <li>
-              <a className="text-gray-600 hover:text-gray-800">Fourth Link</a>
-            </li>
-          </nav>
-        </div>
-        <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-          <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
-          <nav className="list-none mb-10">
-            <li>
-              <a className="text-gray-600 hover:text-gray-800">First Link</a>
-            </li>
-            <li>
-              <a className="text-gray-600 hover:text-gray-800">Second Link</a>
-            </li>
-            <li>
-              <a className="text-gray-600 hover:text-gray-800">Third Link</a>
-            </li>
-            <li>
-              <a className="text-gray-600 hover:text-gray-800">Fourth Link</a>
-            </li>
-          </nav>
-        </div>
-        <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-          <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
-          <nav className="list-none mb-10">
-            <li>
-              <a className="text-gray-600 hover:text-gray-800">First Link</a>
-            </li>
-            <li>
-              <a className="text-gray-600 hover:text-gray-800">Second Link</a>
-            </li>
-            <li>
-              <a className="text-gray-600 hover:text-gray-800">Third Link</a>
-            </li>
-            <li>
-              <a className="text-gray-600 hover:text-gray-800">Fourth Link</a>
-            </li>
-          </nav>
-        </div>
-        <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-          <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">SUBSCRIBE</h2>
-          <div className="flex xl:flex-nowrap md:flex-nowrap lg:flex-wrap flex-wrap justify-center items-end md:justify-start">
-            <div className="relative w-40 sm:w-auto xl:mr-4 lg:mr-0 sm:mr-4 mr-2">
-              <label for="footer-field" className="leading-7 text-sm text-gray-600">Placeholder</label>
-              <input type="text" id="footer-field" name="footer-field" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:bg-transparent focus:ring-2 focus:ring-yellow-200 focus:border-yellow-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
+      <footer class="bg-gradient-to-r from-blue-300 to-green-200 dark:bg-gray-900">
+        <div class="mx-auto max-w-screen-xl space-y-8 px-4 py-12 sm:px-6 lg:space-y-8 lg:px-4">
+          <div class="flex flex-row space-between items-start justify-between mb-20">
+            <div class="lg:w-1/5">
+              <img src={olylogo} alt="" class="w-full"></img>
             </div>
-            <button className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded">Button</button>
+
+            <div>
+              <p class="font-medium text-xl text-gray-900 dark:text-white">
+                Olympic Games
+              </p>
+
+              <ul class="mt-5 space-y-4 text-base">
+                <li>
+                  <a
+                    href="#"
+                    class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
+                  >
+                    Paris 2024
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
+                  >
+                    Results and Medals
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
+                  >
+                    Replays & Highlights
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
+                  >
+                    All Olympic Games
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="font-medium text-xl text-gray-900 dark:text-white">
+                Olympic Channel
+              </p>
+
+              <ul class="mt-5 space-y-4 text-base">
+                <li>
+                  <a
+                    href="#"
+                    class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
+                  >
+                    TV Channel
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
+                  >
+                    Live Events
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
+                  >
+                    Original Series
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
+                  >
+                    Corporate
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="font-medium text-xl text-gray-900 dark:text-white">
+                Stats
+              </p>
+
+              <ul class="mt-5 space-y-4 text-base">
+                <li>
+                  <a
+                    href="#"
+                    class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
+                  >
+                    Athletes
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
+                  >
+                    Sports
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#"
+                    class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
+                  >
+                    Country
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="font-medium text-xl text-gray-900 dark:text-white">
+                Account
+              </p>
+
+              <ul class="mt-5 space-y-4 text-base">
+                <li>
+                  <a
+                    href="/signertype"
+                    class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
+                  >
+                    Sign Up
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/login"
+                    class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
+                  >
+                    Login
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
-          <p className="text-gray-500 text-sm mt-2 md:text-left text-center">Bitters chicharrones fanny pack
-            <p className="lg:block hidden">waistcoat green juice</p>
-          </p>
+
+          <hr class="border-t-2 border-gray-900" />
+
+          {/* Add logos here */}
         </div>
-      </div>
-    </div>
 
-  </footer>
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+          &copy; 2023. Laya Arun. All rights reserved.
+        </p>
+      </footer>
     </>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
