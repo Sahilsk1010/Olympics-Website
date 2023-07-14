@@ -10,7 +10,6 @@ const Header = () => {
         <div className="container mx-10 flex flex-wrap p-5 flex-col md:flex-row items-center justify-end">
           <a
             href="/"
-            target="_blank"
             className="order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0"
           >
             <img src={logo} className="h-16 w-36"></img>

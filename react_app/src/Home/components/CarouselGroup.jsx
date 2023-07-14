@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import photo from '../../img/dummy.jpg';
 import './imageMove.css';
 
 import UniCarousel from './UniCarousel';
@@ -33,6 +32,7 @@ const Hero = () => {
     setImg("")
   }
 
+  
   return (
     <>
       <div className='carousel-container'>
