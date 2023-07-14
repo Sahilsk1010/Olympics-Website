@@ -4,9 +4,9 @@ import olylogo from "./img/logo2.png";
 const Footer = () => {
   return (
     <>
-      <footer class="bg-gradient-to-r from-blue-300 to-green-200 dark:bg-gray-900">
+      <footer class="bg-gradient-to-r from-blue-200 to-green-200 dark:bg-gray-900 mt-3">
         <div class="mx-auto max-w-screen-xl space-y-8 px-4 py-12 sm:px-6 lg:space-y-8 lg:px-4">
-          <div class="flex flex-row space-between items-start justify-between mb-20">
+          <div class="flex flex-col items-start space-y-4 md:flex-row md:space-between justify-between mb-14 ">
             <div class="lg:w-1/5">
               <img src={olylogo} alt="" class="w-full"></img>
             </div>
