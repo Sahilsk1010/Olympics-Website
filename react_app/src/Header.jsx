@@ -1,20 +1,22 @@
 import React from "react";
 
 import logo from "./img/logo2.png";
+import signup from "./img/signUp.png";
+import login from "./img/log-in.png";
 import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
     <>
       <header className="text-gray-600 body-font bg-gradient-to-r mb-3 from-blue-300 to-green-300">
-        <div className="container mx-10 flex flex-wrap p-5 flex-col md:flex-row items-center justify-end">
+        <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center justify-end">
           <a
             href="/"
             className="order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0"
           >
             <img src={logo} className="h-16 w-36"></img>
           </a>
-          <nav className="flex lg:w-2/5 flex-wrap items-center justify-around text-xl md:ml-auto ">
+          <nav className="flex lg:w-3/5 flex-wrap items-center justify-end text-xl md:ml-auto ">
             <a
               href="https://olympics.com/en/"
               target="_blank"
@@ -25,11 +27,38 @@ const Header = () => {
             <a className="mr-5 hover:text-gray-900 cursor-pointer ">Athletes</a>
             <a className="mr-5 hover:text-gray-900 cursor-pointer ">Sports</a>
             <a className="mr-5 hover:text-gray-900 cursor-pointer ">Stats</a>
-            <a className="mr-5 hover:text-gray-900 cursor-pointer ">News</a>
-            <a href="/signertype" className="mr-5 hover:text-gray-900">
+            <a href="/history" className="mr-5 hover:text-gray-900">
+              History
+            </a>
+            <a className="mr-5 hover:text-gray-900 cursor-pointer ">
+              Favourites
+            </a>
+            <a
+              href="/post"
+              className="mr-5 hover:text-gray-900 cursor-pointer "
+            >
+              Post
+            </a>
+            <a
+              href="/signertype"
+              className="flex items-center mr-5 hover:text-gray-900"
+            >
+              <img
+                src={signup}
+                alt=""
+                className="h-5 w-5 mr-1 hover:scale-110"
+              />
               Sign Up
             </a>
-            <a href="/login" className="mr-5 hover:text-gray-900">
+            <a
+              href="/login"
+              className="flex items-center mr-5 hover:text-gray-900"
+            >
+              <img
+                src={login}
+                alt=""
+                className="h-5 w-5 mr-1 hover:scale-110"
+              />
               Login
             </a>
           </nav>
