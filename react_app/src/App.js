@@ -10,6 +10,8 @@ import MiniHeader from "./MiniHeader";
 import Header from "./Header";
 import Footer from "./Footer";
 import SignerType from "./Register/SignerType";
+import History from "./NavbarRedirects/History"
+import Post from "./NavbarRedirects/Post"
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
             <Route exact path="/fansignin" element={<FanSignin />}></Route>
             <Route exact path="/signertype" element={<SignerType />}></Route>
             <Route exact path="/login" element={<Login />}></Route>
+            <Route exact path="/history" element={<History />}></Route>
+            <Route exact path="/post" element={<Post />}></Route>
           </Routes>
         </div>
       <Footer />
