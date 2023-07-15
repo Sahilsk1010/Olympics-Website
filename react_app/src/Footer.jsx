@@ -28,7 +28,7 @@ const Footer = () => {
 
                 <li>
                   <a
-                    href="#"
+                    href="/history"
                     class=" text-gray-600 transition hover:text-gray-900 hover:underline dark:text-gray-200"
                   >
                     Results and Medals
