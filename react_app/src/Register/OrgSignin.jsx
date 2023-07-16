@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import axios from 'axios';
+
 
 const OrgSignin = () => {
   const location = useLocation();
@@ -17,7 +19,7 @@ const OrgSignin = () => {
     cpassword: "",
   });
 
-  // user.type=location.state.type;
+  user.type=location.state.type;
 
   let name, value;
   const handleInputs = (e) => {
@@ -41,6 +43,15 @@ const OrgSignin = () => {
       password,
       cpassword,
     } = user;
+
+    try{
+      const res=await axios.post("http://localhost:8000/orgRegister",{type,fname,lname,dob,gender,country,email,password});
+
+      console.log(res);
+    }
+    catch(err){
+      console.log(err);
+    }
   };
 
   // Validate the date

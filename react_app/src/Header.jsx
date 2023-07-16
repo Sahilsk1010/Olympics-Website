@@ -27,20 +27,22 @@ const Header = () => {
             <a className="mr-5 hover:text-gray-900 cursor-pointer ">Athletes</a>
             <a className="mr-5 hover:text-gray-900 cursor-pointer ">Sports</a>
             <a className="mr-5 hover:text-gray-900 cursor-pointer ">Stats</a>
-            <a href="/history" className="mr-5 hover:text-gray-900">
+            <a href=" http://localhost:8501" className="mr-5 hover:text-gray-900 cursor-pointer ">Graph</a>
+
+            <NavLink to="/history" className="mr-5 hover:text-gray-900">
               History
-            </a>
-            <a className="mr-5 hover:text-gray-900 cursor-pointer ">
+            </NavLink>
+            <NavLink className="mr-5 hover:text-gray-900 cursor-pointer ">
               Favourites
-            </a>
-            <a
-              href="/post"
+            </NavLink>
+            <NavLink
+              to="/post"
               className="mr-5 hover:text-gray-900 cursor-pointer "
             >
               Post
-            </a>
-            <a
-              href="/signertype"
+            </NavLink>
+            <NavLink
+              to="/signertype"
               className="flex items-center mr-5 hover:text-gray-900"
             >
               <img
@@ -49,9 +51,9 @@ const Header = () => {
                 className="h-5 w-5 mr-1 hover:scale-110"
               />
               Sign Up
-            </a>
-            <a
-              href="/login"
+            </NavLink>
+            <NavLink
+              to="/login"
               className="flex items-center mr-5 hover:text-gray-900"
             >
               <img
@@ -60,7 +62,7 @@ const Header = () => {
                 className="h-5 w-5 mr-1 hover:scale-110"
               />
               Login
-            </a>
+            </NavLink>
           </nav>
         </div>
       </header>

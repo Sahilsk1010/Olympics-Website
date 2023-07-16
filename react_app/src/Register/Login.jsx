@@ -1,7 +1,63 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React,{useState} from "react";
+import { NavLink,useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const Login = () => {
+  const navigate=useNavigate();
+
+  const [user, setUser] = useState({
+    type: "",
+    email: "",
+    password: "",
+  });
+
+  // user.type=location.state.type;
+
+  let name, value;
+  const handleInputs = (e) => {
+    console.log(e.target.name);
+    name = e.target.name;
+    value = e.target.value;
+    setUser({ ...user, [name]: value });
+    console.log(user);
+  };
+
+
+  const PostData = async (e) => {
+    e.preventDefault();
+    const {
+      type,
+      email,
+      password,
+    } = user;
+
+    const api = axios.create({
+      baseURL: "http://localhost:5000/api/v1",
+      withCredentials: true,
+      headers: {
+          "Content-type": "application/json",
+      },
+  });
+
+    try{
+      const res=await api.post("http://localhost:8000/login",{type,email,password});
+      
+
+      localStorage.setItem('token',res.data.token);
+      console.log(res);
+
+      // const ans=await api.get('http://localhost:8000/setuser',{ withCredentials: true });
+      // console.log(ans);
+
+      if(res.status===200){
+        navigate('/');
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <div className="grid justify-center items-center px-6 py-3 mx-auto lg:py-14 max-w-[600px] bg-gradient-to-r from-blue-50 to-green-50 rounded-lg">
@@ -23,8 +79,34 @@ const Login = () => {
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="name@company.com"
               required=""
+              value={user.email}
+              onChange={handleInputs}
+
             />
           </div>
+          <div>
+          <label
+                for="type"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Type
+              </label>
+              <div className="inline-block relative w-full py-1">
+                <select
+                  name="type"
+                  onChange={handleInputs}
+                  className="bg-transparent border border-gray-300 text-gray-900 sm:text-sm md:text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option disabled selected>
+                    Select your gender
+                  </option>
+                  <option>Manager</option>
+                  <option>Coach</option>
+                  <option>Athlete</option>
+                  <option>Fan</option>
+                </select>
+              </div>
+            </div>
           <div>
             <label
               for="password"
@@ -39,12 +121,16 @@ const Login = () => {
               placeholder="••••••••"
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required=""
+              value={user.password}
+              onChange={handleInputs}
+
             />
           </div>
 
           <button
             type="submit"
             class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            onClick={PostData}
           >
             Login
           </button>
