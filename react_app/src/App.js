@@ -8,7 +8,6 @@ import OrgSignin from "./Register/OrgSignin";
 import Login from "./Register/Login";
 import MiniHeader from "./MiniHeader";
 import Header from "./Header";
-import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import SignerType from "./Register/SignerType";
 import History from "./NavbarRedirects/History"
