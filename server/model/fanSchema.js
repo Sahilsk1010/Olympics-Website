@@ -1,32 +1,30 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 
-const fanSchema=new mongoose.Schema({
-    name:{
-        type:String,
-        required:true
-    },
+const fanSchema = new mongoose.Schema({
+	name: {
+		type: String,
+		require: true
+	},
+	email: {
+		type: String,
+		require: true
+	},
     gender:{
         type:String,
-        required:true
-    },
-    email:{
-        type:String,
-        required:true
+        require:true
     },
     country:{
         type:String,
-        required:true
+        require:true
     },
     password:{
         type:String,
-        required:true
-    },
-    cpassword:{
-        type:String,
-        required:true
+        require:true
     }
 })
 
-const fan=new mongoose.model('fanbase',fanSchema);
+const Fans = new mongoose.model("fanbase", fanSchema)
 
-module.exports=fan;
+
+module.exports=Fans;
+

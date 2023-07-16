@@ -1,7 +1,50 @@
-import React from "react";
+import React,{useState} from "react";
 import { NavLink } from "react-router-dom";
+import axios from 'axios'
 
 const FanSignin = () => {
+  const [user, setUser] = useState({
+    name: "",
+    gender: "",
+    country: "",
+    email: "",
+    password: "",
+    cpassword:""
+  });
+
+  // user.type=location.state.type;
+
+  let name, value;
+  const handleInputs = (e) => {
+    console.log(e.target.name);
+    name = e.target.name;
+    value = e.target.value;
+    setUser({ ...user, [name]: value });
+    console.log(user);
+  };
+
+
+  const PostData = async (e) => {
+    e.preventDefault();
+    const {
+      name,
+      gender,
+      country,
+      email,
+      password,
+    } = user;
+
+    try{
+      const res=await axios.post("http://localhost:8000/fanRegister",{name,gender,country,email,password});
+
+      console.log(res);
+    }
+    catch(err){
+      console.log(err);
+    }
+  };
+
+
   return (
     <>
       <div className="grid justify-center items-center px-6 py-3 mx-auto lg:py-10 max-w-[600px] bg-gradient-to-r from-blue-50 to-green-50 rounded-lg">
@@ -23,6 +66,8 @@ const FanSignin = () => {
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Name"
               required=""
+              onChange={handleInputs}
+              value={user.name}
             />
           </div>
           <div>
@@ -39,8 +84,56 @@ const FanSignin = () => {
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="name@company.com"
               required=""
+              onChange={handleInputs}
+              value={user.email}
             />
           </div>
+          <div>
+              <label
+                for="gender"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Gender
+              </label>
+              <div className="inline-block relative w-full py-1">
+                <select
+                  name="gender"
+                  onChange={handleInputs}
+                  className="bg-transparent border border-gray-300 text-gray-900 sm:text-sm md:text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option disabled selected>
+                    Select your gender
+                  </option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Others</option>
+                </select>
+              </div>
+            </div>
+
+                        <div>
+              <label
+                for="country"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Representing Country
+              </label>
+              <div className="inline-block relative w-full py-1">
+                <select
+                  name="country"
+                  onChange={handleInputs}
+                  className="bg-transparent border border-gray-300 text-gray-900 sm:text-sm md:text-base rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option disabled selected>
+                    Select a country
+                  </option>
+                  <option value="USA">United States</option>
+                  <option value="Canada">Canada</option>
+                  <option value="UK">United Kingdom</option>
+                </select>
+              </div>
+            </div>
+
           <div>
             <label
               for="password"
@@ -55,22 +148,26 @@ const FanSignin = () => {
               placeholder="••••••••"
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required=""
+              onChange={handleInputs}
+              value={user.password}
             />
           </div>
           <div>
             <label
-              for="confirm-password"
+              for="cpassword"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Confirm password
             </label>
             <input
-              type="confirm-password"
-              name="confirm-password"
-              id="confirm-password"
+              type="cpassword"
+              name="cpassword"
+              id="cpassword"
               placeholder="••••••••"
               class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required=""
+              onChange={handleInputs}
+              value={user.cpassword}
             />
           </div>
           <div class="flex items-start">
@@ -102,6 +199,7 @@ const FanSignin = () => {
           <button
             type="submit"
             class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            onClick={PostData}
           >
             Create an account
           </button>

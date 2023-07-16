@@ -1,40 +1,40 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 
-const orgSchema=new mongoose.Schema({
+const orgSchema = new mongoose.Schema({
     type:{
         type:String,
-        required:true
+        require:true
     },
-    fname:{
-        type:String,
-        required:true
-    },
-    lname:{
-        type:String,
-        required:true
-    },
-    dob:{
-        type:String,
-        required:true
-    },
+	fname: {
+		type: String,
+		require: true
+	},
+	lname: {
+		type: String,
+		require: true
+	},
+	dob: {
+		type: String,
+		require: true
+	},
+	email: {
+		type: String,
+		require: true
+	},
     gender:{
         type:String,
-        required:true
+        require:true
     },
     country:{
         type:String,
-        required:true
+        require:true
     },
     password:{
         type:String,
-        required:true
-    },
-    cpassword:{
-        type:String,
-        required:true
+        require:true
     }
 })
 
-const organiser=new mongoose.model('orgBase',orgSchema);
+const Organisers = new mongoose.model("orgbase", orgSchema)
 
-module.exports=organiser;
+module.exports=Organisers;
