@@ -7,6 +7,7 @@ const cookieParser=require('cookie-parser');
 require('./db/conn')
 const app=express();
 
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
@@ -24,8 +25,8 @@ require('./authenticate/passport');
 
 const imp=require('./Routers/router');
 const Router=imp.router;
-app.use(Router);
 
+app.use(Router);
 
 const PORT=process.env.PORT;
 
