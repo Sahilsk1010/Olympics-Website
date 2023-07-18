@@ -223,9 +223,9 @@ router.post('/login',async(req,res)=>{
 })
 
 
-router.get('/setuser', (req, res)=>{
+router.get('/getuser', (req, res)=>{
     console.log(req.cookies.Type);
-    res.status(200).send('user data added to cookie');
+    res.status(200).json({"Type":req.cookies.Type});
 });
 
 

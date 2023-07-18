@@ -1,6 +1,8 @@
 import React,{useState} from "react";
 import { NavLink,useNavigate } from "react-router-dom";
 import axios from 'axios';
+import {motion} from 'framer-motion';
+
 
 const Login = () => {
   const navigate=useNavigate();
@@ -59,7 +61,13 @@ const Login = () => {
   };
 
   return (
-    <>
+    <motion.div
+    initial={{opacity:0}}
+    animate={{opacity:1}}
+    exit={{opacity:0}}
+    transition={{duration:0.2}}
+    style={{color:"red",fontSize:"30px",padding:"20px"}}
+>
       <div className="grid justify-center items-center px-6 py-3 mx-auto lg:py-14 max-w-[600px] bg-gradient-to-r from-blue-50 to-green-50 rounded-lg">
         <form
           method="POST"
@@ -147,7 +155,7 @@ const Login = () => {
           </p>
         </form>
       </div>
-    </>
+    </motion.div>
   );
 };
 
