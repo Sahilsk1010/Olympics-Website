@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import axios from 'axios';
+import {motion} from 'framer-motion';
 
 
 const OrgSignin = () => {
@@ -58,7 +59,13 @@ const OrgSignin = () => {
   const dateRegex = /^(0[1-9]|1\d|2\d|3[01])-(0[1-9]|1[0-2])-(19|20)\d{2}$/;
 
   return (
-    <>
+    <motion.div
+    initial={{opacity:0}}
+    animate={{opacity:1}}
+    exit={{opacity:0}}
+    transition={{duration:2}}
+    style={{color:"red",fontSize:"30px",padding:"20px"}}
+    >
       <div className="grid justify-center items-center px-6 py-3 mx-auto lg:py-14 max-w-[1000px] bg-gradient-to-r from-blue-50 to-green-50 rounded-lg">
         {/* className="grid grid-cols-1 md:grid-cols-2 gap-4"> */}
         {/*  bg-gradient-to-r from-red-200 to-indigo-200 bg-gradient-to-r from-blue-100 to-yellow-100 */}
@@ -268,7 +275,7 @@ const OrgSignin = () => {
           </div>
         </form>
       </div>
-    </>
+    </motion.div>
   );
 };
 

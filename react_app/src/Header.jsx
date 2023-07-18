@@ -26,8 +26,7 @@ const Header = () => {
             </a>
             <a className="mr-5 hover:text-gray-900 cursor-pointer ">Athletes</a>
             <a className="mr-5 hover:text-gray-900 cursor-pointer ">Sports</a>
-            <a className="mr-5 hover:text-gray-900 cursor-pointer ">Stats</a>
-            <a href=" http://localhost:8501" className="mr-5 hover:text-gray-900 cursor-pointer ">Graph</a>
+            <NavLink to='/stats' className="mr-5 hover:text-gray-900 cursor-pointer ">Stats</NavLink>
 
             <NavLink to="/history" className="mr-5 hover:text-gray-900">
               History
@@ -62,6 +61,17 @@ const Header = () => {
                 className="h-5 w-5 mr-1 hover:scale-110"
               />
               Login
+            </NavLink>
+            <NavLink
+              to="/testing"
+              className="flex items-center mr-5 hover:text-gray-900"
+            >
+              <img
+                src={login}
+                alt=""
+                className="h-5 w-5 mr-1 hover:scale-110"
+              />
+              Testing
             </NavLink>
           </nav>
         </div>

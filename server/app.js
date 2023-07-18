@@ -30,6 +30,18 @@ app.use(Router);
 
 const PORT=process.env.PORT;
 
+
+const { spawn } = require('child_process');
+
+app.get('/streamlit', (req, res) => {
+  const streamlitProcess = spawn('streamlit', ['run', 'olympics.py']);
+  streamlitProcess.stdout.pipe(process.stdout);
+  streamlitProcess.stderr.pipe(process.stderr);
+  res.status(200).json({message:"Showing Stats"});
+});
+
+
+
 app.listen(PORT,()=>{
     console.log("Server running on ",PORT);
 })

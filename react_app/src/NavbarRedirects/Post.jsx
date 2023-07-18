@@ -1,6 +1,37 @@
-import React from "react";
+import React,{useEffect} from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import {motion} from "framer-motion"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const Post = () => {
+  const navigate=useNavigate();
+
+  useEffect( ()=>{
+    
+    async function fetchData() {
+      console.log("YEYEYEYEYEYEYEYE");
+      try{
+        const token=localStorage.getItem('token');
+        const res=await axios.get('http://localhost:8000/protected',{
+          headers:{
+            Authorization:token
+          }
+        })
+        console.log(res);
+        console.log("ata pa")
+      }
+      catch(err){
+        toast("Please login first");
+        console.log(err);
+        navigate('/login');
+      }
+    }
+    fetchData();
+  },[])
   // maintaining the line height of the textarea
   const styles = {
     lineHeight: "2",
@@ -17,6 +48,13 @@ const Post = () => {
   };
 
   return (
+    <motion.div
+    initial={{opacity:0}}
+    animate={{opacity:1}}
+    exit={{opacity:0}}
+    transition={{delay:1,duration:3}}
+    style={{color:"red",fontSize:"30px",padding:"20px"}}
+>
     <form>
       <div class="max-w-[1400px] mx-auto my-6 border-1 pt-4 pb-3 border-yellow-100 rounded-lg bg-gradient-to-r from-blue-100 to-green-100 dark:bg-gray-700 dark:border-gray-600">
         <div class="px-6 py-2 rounded-xl mb-2">
@@ -67,6 +105,19 @@ const Post = () => {
         </p>
       </div>{" "}
     </form>
+    <ToastContainer
+      position="bottom-center"
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+      />    
+      </motion.div>
   );
 };
 
