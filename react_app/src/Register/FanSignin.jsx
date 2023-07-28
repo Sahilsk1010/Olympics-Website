@@ -1,10 +1,14 @@
 import React,{useState} from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 import axios from 'axios';
 import {motion} from "framer-motion";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const FanSignin = () => {
+  const navigate=useNavigate();
+
   const [user, setUser] = useState({
     name: "",
     gender: "",
@@ -40,14 +44,19 @@ const FanSignin = () => {
       const res=await axios.post("http://localhost:8000/fanRegister",{name,gender,country,email,password});
 
       console.log(res);
+      navigate('/login');
     }
     catch(err){
+      toast("Signin Failed")
+      setUser({name: "",gender: "",country: "",email: "",password: "", cpassword:""})
       console.log(err);
     }
   };
 
 
   return (
+    <>
+
     <motion.div
     initial={{opacity:0}}
     animate={{opacity:1}}
@@ -224,6 +233,21 @@ const FanSignin = () => {
         </form>
       </div>
     </motion.div>
+
+    <ToastContainer
+      position="bottom-center"
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+      /> 
+    </>
+    
   );
 };
 

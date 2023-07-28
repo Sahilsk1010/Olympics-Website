@@ -1,11 +1,15 @@
 import React,{useState} from "react";
 import { NavLink,useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import axios from 'axios';
 import {motion} from 'framer-motion';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Login = () => {
   const navigate=useNavigate();
+  const dispatch=useDispatch();
 
   const [user, setUser] = useState({
     type: "",
@@ -39,23 +43,30 @@ const Login = () => {
       headers: {
           "Content-type": "application/json",
       },
-  });
+    });
 
     try{
       const res=await api.post("http://localhost:8000/login",{type,email,password});
       
 
       localStorage.setItem('token',res.data.token);
+      localStorage.setItem('Email',user.email);
+
       console.log(res);
 
       // const ans=await api.get('http://localhost:8000/setuser',{ withCredentials: true });
       // console.log(ans);
 
       if(res.status===200){
+        dispatch({
+          type:"setloggedemail",
+          payload:user.email
+        })
         navigate('/');
       }
     }
     catch(err){
+      toast("Invalid Password");
       console.log(err);
     }
   };
@@ -155,6 +166,18 @@ const Login = () => {
           </p>
         </form>
       </div>
+      <ToastContainer
+      position="bottom-center"
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+      />    
     </motion.div>
   );
 };

@@ -3,36 +3,52 @@ const mongoose = require('mongoose');
 const orgSchema = new mongoose.Schema({
     type:{
         type:String,
-        require:true
+        required:true
     },
 	fname: {
 		type: String,
-		require: true
+		required: true
 	},
 	lname: {
 		type: String,
-		require: true
+		required: true
 	},
 	dob: {
 		type: String,
-		require: true
+		required: true
 	},
 	email: {
 		type: String,
-		require: true
+		required: true
 	},
     gender:{
         type:String,
-        require:true
+        required:true
     },
     country:{
         type:String,
-        require:true
+        required:true
     },
     password:{
         type:String,
-        require:true
-    }
+        required:true
+    },
+    cpassword:String,
+    followers:[
+        {
+            name:String
+        }
+    ],
+    follwings:[
+        {
+            name:String
+        }
+    ],
+    images:[
+        {
+            img:String
+        }
+    ]
 })
 
 const Organisers = new mongoose.model("orgbase", orgSchema)

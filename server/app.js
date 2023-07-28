@@ -8,27 +8,36 @@ require('./db/conn')
 const app=express();
 
 
-app.use(cookieParser());
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({extended:true}))
+app.use(express.static('public'));
+
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Replace with the correct frontend URL
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     next();
+// });
+
 // app.use(cors());
-// app.use(cors({ credentials: true, origin: 'http://localhost:3000/' }));
 app.use(
     cors({
         credentials: true,
         origin: "http://localhost:3000",
     })
 );
+
 app.use(passport.initialize());
 
 require('./authenticate/passport');
 
-const imp=require('./Routers/router');
-const Router=imp.router;
+const Router=require('./Routers/router')
 
 app.use(Router);
 
 const PORT=process.env.PORT;
+
 
 
 const { spawn } = require('child_process');
@@ -40,6 +49,13 @@ app.get('/streamlit', (req, res) => {
   res.status(200).json({message:"Showing Stats"});
 });
 
+
+app.get("/", (req, res) => {
+    console.log("JKLDJKLJD");
+    // console.log(req)
+    console.log(req.cookies);
+    res.send(req.cookies)
+ });
 
 
 app.listen(PORT,()=>{
