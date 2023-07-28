@@ -1,11 +1,16 @@
 const express=require('express');
-const mongoose=require('mongoose');
 const app=express();
-const Fans=require('../model/fanSchema');
-const Organisers=require('../model/orgSchema');
+const multer=require('multer');
+const mongoose=require('mongoose');
 const { hashSync, compareSync } = require('bcrypt');
 const jwt=require('jsonwebtoken');
 const passport =require('passport');
+const path=require('path');
+
+const Fans=require('../model/fanSchema');
+const Organisers=require('../model/orgSchema');
+const {authSchemaOrg,authSchemaFan}=require('../helpers/validateuser');
+const {Sports,Countries}=require('../model/sport_countrySchema');
 require('dotenv').config('./config.env');
 
 
@@ -16,16 +21,22 @@ const Fan=require('../model/fanSchema');
 const router=express.Router();
 
 
-
 router.post('/orgregister',async (req,res)=>{
     try{
+        console.log("HJKHJK")
+        
+        const checkall=await authSchemaOrg.validateAsync(req.body);
+        console.log("HJKHJK")
+        
+        // const {type,fname,lname,dob,gender,country,email,password,cpassword}=req.body;
+        const {type,fname,lname,dob,gender,country,email,password,cpassword}=checkall;
 
-        const {type,fname,lname,dob,email,gender,country,password}=req.body;
+        console.log(checkall);
 
         const userExists=await Organisers.findOne({type,email});
 
         if(userExists){
-            return res.status(201).send({
+            return res.status(409).send({
                 success:false,
                 message:"User already exists",
             })
@@ -46,83 +57,19 @@ router.post('/orgregister',async (req,res)=>{
         })
     }
     catch(err){
-        res.send({
-            success:false,
-            message:"Something went wrong",
-            error:err
+        if (err.isJoi===true){
+            res.status(422).send({
+                success:false,
+                message:"Joi went wrong",
+                error:err.details[0].message
         })
-    }
-})
-
-router.post('/orgRegister', async (req,res)=>{
-    console.log(req.body);
-
-    const {type,fname,lname,dob,gender,country,email,password,cpassword}=req.body;
-
-    if(!fname || !lname || !dob || !gender || !country || !email || !password || !cpassword){
-        return res.status(400).send({message:"All fields must be filled"});
-    }
-    else if(password!=cpassword){
-        return res.status(404).json({message:"Invalid credentials"});
-    }
-    else{
-        try{
-            const orgExits=await Organiser.findOne({email:email});
-            if(orgExits){
-                return res.status(423).json({message:"User already exists"});
-            }
-            
-            const organiser = new Organiser({type,fname,lname,dob,gender,country,email,password,cpassword});
-
-            console.log("HELLO")
-
-            try{
-                const orgRegister=await organiser.save();
-                res.status(201).json({message:"User saved successfully"});
-            }
-            catch(err){
-                res.status(500).json({message:"Failed to register"});
-            }
         }
-        catch(err){
-            res.status(500).json({message:"Server side error"});
-        }
-    }
-})
-
-
-router.post('/fanRegister', async (req,res)=>{
-    console.log(req.body);
-
-    const {name,gender,country,email,password,cpassword}=req.body;
-
-    if(!name || !gender || !country || !email || !password || !cpassword){
-        return res.status(400).send({message:"All fields must be filled"});
-    }
-    else if(password!=cpassword){
-        return res.status(404).json({message:"Invalid credentials"});
-    }
-    else{
-        try{
-            const orgExits=await Organiser.findOne({email:email});
-            if(orgExits){
-                return res.status(423).json({message:"User already exists"});
-            }
-            
-            const fan = new Fan({name,gender,country,email,password,cpassword});
-
-            console.log("HELLO")
-
-            try{
-                const fanRegister=await fan.save();
-                res.status(201).json({message:"User saved successfully"});
-            }
-            catch(err){
-                res.status(500).json({message:"Failed to register"});
-            }
-        }
-        catch(err){
-            res.status(500).json({message:"Server side error"});
+        else{
+            res.status(500).send({
+                success:false,
+                message:"Internal Server Error",
+                error:err
+            })
         }
     }
 })
@@ -131,14 +78,17 @@ router.post('/fanRegister', async (req,res)=>{
 router.post('/fanregister',async (req,res)=>{
     try{
 
-        const {name,email,gender,country,password}=req.body;
+        const checkall=await authSchemaFan.validateAsync(req.body);
+
+
+        const {name,email,gender,country,password}=checkall;
 
         const userExists=await Fans.findOne({email});
         console.log(userExists);
         if(userExists){
-            return res.status(201).send({
+            return res.status(409).send({
                 success:false,
-                message:"User already exists",
+                message:"Joi went wrong"
             })
         }
 
@@ -157,22 +107,40 @@ router.post('/fanregister',async (req,res)=>{
         })
     }
     catch(err){
-        res.send({
-            success:false,
-            message:"Something went wrong",
-            error:err
-        })
+        if (err.isJoi===true){
+            console.log("HI");
+            return res.status(422).send({
+                success:false,
+                message:"Joi went wrong",
+                error:err.details[0].message
+            })
+        }
+        else{
+
+            return res.status(500).send({
+                success:false,
+                message:"Something went wrong",
+                error:err
+            })
+        }
     }
 })
 
-var type;
 
 router.post('/login',async(req,res)=>{
-
+    const {email,password,type} =req.body;
+    if(!email || !password || !type){
+        return res.status(400).send({
+            success:false,
+            message:"Enter all fields"
+        })
+    }
 
     var user;
     console.log(req.body);
-    type=req.body.type;
+    // type=req.body.type;
+
+    
     if(req.body.type==='Fan'){
         user=await Fans.findOne({email:req.body.email});
     }
@@ -198,39 +166,38 @@ router.post('/login',async(req,res)=>{
         email:user.email,
         id:user._id
     }
-
-    console.log(req.body.type);
-
-    
-    console.log("TYpe in login ",type);
-    
-    exports.type=type;
-    
-    console.log(payload);
+  
 
     res.cookie("Type",req.body.type,{
         expires:new Date(Date.now() + 25892000000),
         httpOnly:true
     });
+
+
+    console.log(req.cookies);
+
     
     const token=jwt.sign(payload,process.env.SECRET_KEY,{expiresIn:"1d"})
     
     return res.status(200).send({
         success:true,
-    message:"Logged in successfully",
-    token:"Bearer "+token
+        message:"Logged in successfully",
+        token:"Bearer "+token
     })
 })
 
 
-router.get('/getuser', (req, res)=>{
-    console.log(req.cookies.Type);
-    res.status(200).json({"Type":req.cookies.Type});
-});
+router.get('/cookie',(req,res)=>{
+    console.log(req.cookies);
+    console.log("cookie route");
+    res.send("GOT cookies");
+})
 
 
 router.get('/protected',passport.authenticate('jwt',{session:false}),(req,res)=>{
 
+    console.log(req.cookies);
+    
     return res.status(200).send({
         success:true,
         user:{
@@ -240,6 +207,67 @@ router.get('/protected',passport.authenticate('jwt',{session:false}),(req,res)=>
     })
 });
 
-exports.router=router;
+router.get('/getsports',async (req,res)=>{
+    const sports=await Sports.find({})
+    res.send(sports);
+})
+
+router.get('/getcountries',async (req,res)=>{
+    const countries=await Countries.find({})
+    res.send(countries);
+})
+
+const storage=multer.diskStorage({
+    destination:(req,file,cb)=>{
+        cb(null,'public')
+    },
+    filename:(req,file,cb)=>{
+        cb(null,file.fieldname+"_"+Date.now()+path.extname(file.originalname))
+    }
+})
+
+const upload=multer({
+    storage:storage
+})
+
+// router.post('/upload/:email',upload.single('file'),async (req,res)=>{
+router.post('/upload',upload.single('file'),async (req,res)=>{
+    try{
+
+        console.log(req.file);
+        const email=req.query.email;
+        console.log(email);
+        console.log("HI")
+    
+    
+        const user=await Organiser.updateOne({email:email},{$push:{images:{img:req.file.filename}}});
+        console.log(user);
+    }
+    catch(err){
+        console.log("ERROR while uploading");
+    }
+})
+    
+    
+    //Yet to complete
+    // router.get('/getimage/:email',async (req,res)=>{
+router.get('/getimages',async (req,res)=>{
+    try{
+        var email=req.query.email;
+        // const email='p@gmail.com';
+        console.log(email);
+        console.log("HIHI");
+        const user=await Organiser.find({email:email});
+        console.log(user);
+        res.status(200).send(user);
+    }
+    catch(err){
+        console.log(err)
+    }
+})
 
 
+// router.get('')
+
+
+module.exports=router;

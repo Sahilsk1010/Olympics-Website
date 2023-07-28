@@ -2,9 +2,10 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
-import MiniHeader from "./MiniHeader";
-import Header from "./Header";
-import Footer from "./Footer";
+import MiniHeader from "./Covers/MiniHeader";
+import Header from "./Covers/Header";
+import Footer from "./Covers/Footer";
+import Noticebar from "./Covers/Noticebar";
 import SignerType from "./Register/SignerType";
 import History from "./NavbarRedirects/History"
 import Post from "./NavbarRedirects/Post"
@@ -13,17 +14,20 @@ import HomeApp from "./Home/HomeApp";
 import FanSignin from "./Register/FanSignin";
 import OrgSignin from "./Register/OrgSignin";
 import Login from "./Register/Login";
-import Testing from "./Testing";
+import SportsLayout from "./Sports/SportsLayout";
+import SportsArticle from "./Sports/SportsArticle";
+import CountriesLayout from "./Countries/CountriesLayout";
 import {motion,AnimatePresence} from 'framer-motion';
 
 function App() {
   return (
-    <>
+    <div className="mainBody">
       <BrowserRouter>
       <AnimatePresence mode="exit">
-        
+        <Noticebar/>
         <MiniHeader />
         <Header />
+        
         <div
         className="md:mx-24">
             <Routes>
@@ -35,13 +39,15 @@ function App() {
                 <Route exact path="/history" element={<History />}></Route>
                 <Route exact path="/post" element={<Post />}></Route>
                 <Route exact path="/stats" element={<Stats />}></Route>
-                <Route exact path="/testing" element={<Testing />}></Route>
+                <Route exact path="/sports" element={<SportsLayout />}></Route>
+                <Route exact path="/sportarticle" element={<SportsArticle />}></Route>
+                <Route exact path="/countries" element={<CountriesLayout />}></Route>
             </Routes>
-        </div>      
+        </div>
         <Footer />
       </AnimatePresence>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 

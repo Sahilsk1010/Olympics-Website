@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation,useNavigate } from "react-router-dom";
 import axios from 'axios';
 import {motion} from 'framer-motion';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import { notify } from "../../../server/Routers/router";
 
 
 const OrgSignin = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   console.log(location.state.type);
+
 
   const [user, setUser] = useState({
     type: "",
@@ -45,13 +50,36 @@ const OrgSignin = () => {
       cpassword,
     } = user;
 
-    try{
-      const res=await axios.post("http://localhost:8000/orgRegister",{type,fname,lname,dob,gender,country,email,password});
 
-      console.log(res);
+    try{
+      const res=await axios.post("http://localhost:8000/orgRegister",{type,fname,lname,dob,gender,country,email,password,cpassword});
+
+
+      if(res.status===201){
+        // toast("User Created Successfully");
+        toast("Stored")
+        navigate('/login')
+      }
+      else{
+        throw new Error("Signin failed");
+      }
+      // console.log(res);
     }
     catch(err){
+      toast("Signin Failed")
+      console.log("BIG ERROR");
       console.log(err);
+      setUser({
+        type: "",
+        fname: "",
+        lname: "",
+        dob: "",
+        gender: "",
+        country: "",
+        email: "",
+        password: "",
+        cpassword: "",
+      })
     }
   };
 
@@ -59,6 +87,7 @@ const OrgSignin = () => {
   const dateRegex = /^(0[1-9]|1\d|2\d|3[01])-(0[1-9]|1[0-2])-(19|20)\d{2}$/;
 
   return (
+    <>
     <motion.div
     initial={{opacity:0}}
     animate={{opacity:1}}
@@ -276,6 +305,19 @@ const OrgSignin = () => {
         </form>
       </div>
     </motion.div>
+    <ToastContainer
+      position="bottom-center"
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+      /> 
+      </>
   );
 };
 

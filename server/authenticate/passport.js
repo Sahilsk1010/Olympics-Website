@@ -16,13 +16,6 @@ opts.secretOrKey = process.env.SECRET_KEY;
 opts.passReqToCallback=true
 
 
-async function getData() {
-    const url = 'http://localhost:8000/getuser';
-    const response = await fetch(url);
-    const jsonResponse = await response.json();
-    console.log(jsonResponse);
-} 
-
 
 const jwtStrategyWrapper=(type)=>{
 
@@ -67,12 +60,12 @@ const jwtStrategyWrapper=(type)=>{
 }
 
 
-
 passport.use(new JwtStrategy(opts, async function(req,jwt_payload, done){
 
-    
-    var type='ad';
-    // console.log(req.cookies.Type);
+      
+    var type=req.cookies.Type;
+    console.log("SUresh kamlaa",type)
+    console.log(req.cookies);
     console.log(jwt_payload);
     
     if(type==='Fan'){
@@ -93,8 +86,7 @@ passport.use(new JwtStrategy(opts, async function(req,jwt_payload, done){
         try{
             console.log("ELSE CSE");
             const user=await Organisers.findOne({_id: jwt_payload.id}); 
-            console.log(user);
-            if(user){
+           if(user){
                 return done(null, user);
             }
             else{
