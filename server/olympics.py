@@ -7,6 +7,63 @@ import plotly.graph_objects as go
 import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
+
+hidden_menu = """
+<style>
+.appview-container, .css-1avcm0n {
+background-color:#B2D3C2;
+}
+
+h1,h2,h3{
+color:black;
+}
+a{
+color:black
+}
+
+footer{
+visibility:hidden
+}
+.css-zuelfj .css-c34i5s{
+color:black;
+border: 1px solid black;
+}
+.css-zuelfj{
+color:black;
+background-color:#c5c6d0;
+}
+.css-4sszyo{
+border:1px solid black;
+
+}
+
+.st-c0{
+color:black;
+font-size:1.1rem;
+
+
+}
+
+.row-widget p{
+color:black;
+font-size:1.1rem;
+
+
+}
+
+
+#MainMenu{
+visibility:hidden
+}
+
+.css-6qob1r{
+background-color:#60d79e;
+}
+</style>
+
+"""
+
+st.markdown(hidden_menu,unsafe_allow_html=True)
 df = pd.read_csv('athlete_events.csv')
 region_df = pd.read_csv('noc_regions.csv')
 df = data.pro(df,region_df)
@@ -31,7 +88,7 @@ if option == 'Medal Tally':
 
 if option == 'Overall Analysis':
     editions = df['Year'].unique().shape[0] - 1
-    nations = df['region'].unique().shape[0]
+    nations = df['Region'].unique().shape[0]
     players = df['Name'].unique().shape[0]
     sports = df['Sport'].unique().shape[0]
     events = df['Event'].unique().shape[0]
@@ -74,7 +131,7 @@ if option == 'Overall Analysis':
 
 
 
-    nationsall = df.drop_duplicates(['Year', 'region'])['Year'].value_counts().sort_values(ascending=True).reset_index()
+    nationsall = df.drop_duplicates(['Year', 'Region'])['Year'].value_counts().sort_values(ascending=True).reset_index()
     nationsall.columns = ['Edition', 'Countries Participating']
 
     fig = px.line(nationsall, y='Edition', x='Countries Participating', title='Participating countries over the years')
@@ -151,7 +208,7 @@ if option == 'Overall Analysis':
 
 if option == 'Country-wise analysis':
     st.sidebar.title("Medals Each Edition")
-    country_list = df['region'].unique().tolist()
+    country_list = df['Region'].unique().tolist()
     country_list.sort(key=str)
     selected_country = st.sidebar.selectbox('Select a Country',country_list)
     medals_c = medal_tally.year_wise_medal_tally(df,selected_country)
@@ -175,15 +232,15 @@ if option == 'Country-wise analysis':
         st.pyplot()
 
 if option == 'Athlete analysis':
-    country_list = df['region'].unique().tolist()
+    country_list = df['Region'].unique().tolist()
     country_list.sort(key=str)
     selected_country = st.sidebar.selectbox('Select a Country', country_list)
 
-    sport_list = df[df['region'] == selected_country]['Sport'].unique()
+    sport_list = df[df['Region'] == selected_country]['Sport'].unique()
     sport_list.sort()
     selected_game = st.sidebar.selectbox('Select sport',sport_list)
 
-    athlete_list = df.loc[(df['Sport'] == selected_game) & (df['region'] == selected_country), 'Name'].unique()
+    athlete_list = df.loc[(df['Sport'] == selected_game) & (df['Region'] == selected_country), 'Name'].unique()
     athlete_list.sort()
     selected_athlete = st.sidebar.selectbox('Select Athlete',athlete_list)
 
@@ -239,7 +296,7 @@ if option == 'Athlete analysis':
 
 
 if option == 'Overall-Athlete analysis':
-    athlete_df = df.drop_duplicates(subset=['Name', 'region'])
+    athlete_df = df.drop_duplicates(subset=['Name', 'Region'])
     x1 = athlete_df['Age'].dropna()
     x2 = athlete_df[athlete_df['Medal'] == 'Gold']['Age'].dropna()
     x3 = athlete_df[athlete_df['Medal'] == 'Silver']['Age'].dropna()

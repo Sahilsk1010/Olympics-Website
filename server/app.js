@@ -52,7 +52,7 @@ app.get('/streamlit', (req, res) => {
 
 app.get("/", (req, res) => {
     console.log("JKLDJKLJD");
-    // console.log(req)
+
     console.log(req.cookies);
     res.send(req.cookies)
  });

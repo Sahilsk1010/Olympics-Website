@@ -24,7 +24,7 @@ const Header = () => {
             >
               Olympics
             </a>
-            <a className="mr-5 hover:text-gray-900 cursor-pointer ">Athletes</a>
+            <NavLink to='/quiz' className="mr-5 hover:text-gray-900 cursor-pointer ">Quiz</NavLink>
             <NavLink to='/sports' className="mr-5 hover:text-gray-900 cursor-pointer ">
               Sports
             </NavLink>
@@ -33,7 +33,7 @@ const Header = () => {
             <NavLink to="/countries" className="mr-5 hover:text-gray-900">
               Countries
             </NavLink>
-            <NavLink className="mr-5 hover:text-gray-900 cursor-pointer ">
+            <NavLink to='/favourites' className="mr-5 hover:text-gray-900 cursor-pointer ">
               Favourites
             </NavLink>
             <NavLink

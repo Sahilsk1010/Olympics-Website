@@ -168,7 +168,7 @@ const Footer = () => {
         </div>
 
         <p class="text-xs text-gray-500 dark:text-gray-400">
-          &copy; 2023. Laya Arun. All rights reserved.
+          &copy; 2023. Om Namah Shivay. All rights reserved.
         </p>
       </footer>
     </>

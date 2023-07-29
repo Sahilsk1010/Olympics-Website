@@ -9,6 +9,7 @@ const path=require('path');
 
 const Fans=require('../model/fanSchema');
 const Organisers=require('../model/orgSchema');
+const Quiz=require('../model/quizSchema');
 const {authSchemaOrg,authSchemaFan}=require('../helpers/validateuser');
 const {Sports,Countries}=require('../model/sport_countrySchema');
 require('dotenv').config('./config.env');
@@ -138,7 +139,6 @@ router.post('/login',async(req,res)=>{
 
     var user;
     console.log(req.body);
-    // type=req.body.type;
 
     
     if(req.body.type==='Fan'){
@@ -166,7 +166,7 @@ router.post('/login',async(req,res)=>{
         email:user.email,
         id:user._id
     }
-  
+
 
     res.cookie("Type",req.body.type,{
         expires:new Date(Date.now() + 25892000000),
@@ -230,7 +230,7 @@ const upload=multer({
     storage:storage
 })
 
-// router.post('/upload/:email',upload.single('file'),async (req,res)=>{
+
 router.post('/upload',upload.single('file'),async (req,res)=>{
     try{
 
@@ -247,14 +247,11 @@ router.post('/upload',upload.single('file'),async (req,res)=>{
         console.log("ERROR while uploading");
     }
 })
-    
-    
-    //Yet to complete
-    // router.get('/getimage/:email',async (req,res)=>{
+
+
 router.get('/getimages',async (req,res)=>{
     try{
-        var email=req.query.email;
-        // const email='p@gmail.com';
+        const email=req.query.email;
         console.log(email);
         console.log("HIHI");
         const user=await Organiser.find({email:email});
@@ -267,7 +264,78 @@ router.get('/getimages',async (req,res)=>{
 })
 
 
-// router.get('')
+router.get('/getOrgs',async (req,res)=>{
+    try{
+        const celebs=await Organiser.find().select({fname:1,lname:1,email:1,_id:0});
+        console.log(celebs);
+        res.status(200).send(celebs);
+    }
+    catch(err){
+        console.log(err);
+    }
+})
+
+
+router.get('/followingfan',async (req,res)=>{
+    const email=req.query.email;
+    try{
+        const user=await Fans.findOne({email:email});
+        console.log(user);
+        res.status(200).send(user);
+    }
+    catch(err){
+        console.log(err);
+    }
+})
+
+
+router.post('/setQuestions',(req,res)=>{
+    try{
+        console.log(req.body);
+        const quesarr=req.body;
+        quesarr.forEach(async(element) => {
+            try{
+
+                const {questionNo,question,options,answer}=element;
+                const ques=new Quiz({questionNo,question,options,answer});
+                await ques.save();
+            }
+            catch(err){
+                console.log("INNer catch",err);
+            }
+        });
+
+        res.send("Save successfully");
+    }
+    catch(err){
+        console.log(err);
+    }
+})
+
+router.get('/getQuestions',async(req,res)=>{
+    try{
+
+        const nums = new Set();
+        while(nums.size !== 10) {
+            nums.add(Math.floor(Math.random() * 100) + 1);
+        }
+        
+        let Sno=[...nums];
+        
+        let questions=[];
+        
+        for(let i=0;i<10;i++){
+            const eachques=await Quiz.find({questionNo:Sno[i]});
+            questions.push(...eachques)
+        }
+        console.log(questions.length);
+
+        res.status(200).send(questions);
+    }
+    catch(err){
+        console.log(err);
+    }
+})
 
 
 module.exports=router;
