@@ -34,12 +34,8 @@ const orgSchema = new mongoose.Schema({
         required:true
     },
     cpassword:String,
-    followers:[
-        {
-            name:String
-        }
-    ],
-    follwings:[
+    followers:Number,
+    followings:[
         {
             name:String
         }

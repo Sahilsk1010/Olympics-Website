@@ -22,9 +22,11 @@ const fanSchema = new mongoose.Schema({
         required:true
     },
     cpassword:String,
-    follwings:[
+    followings:[
         {
-            name:String
+            fname:String,
+            lname:String,
+            email:String
         }
     ]
 })

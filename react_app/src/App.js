@@ -7,9 +7,11 @@ import Header from "./Covers/Header";
 import Footer from "./Covers/Footer";
 import Noticebar from "./Covers/Noticebar";
 import SignerType from "./Register/SignerType";
-import History from "./NavbarRedirects/History"
-import Post from "./NavbarRedirects/Post"
-import Stats from './NavbarRedirects/Stats'
+import History from "./Statistics/History"
+import Post from "./SocialMedia/Post";
+import Favourites from "./SocialMedia/Favourites";
+import Quiz from './QuizLayout/Quiz';
+import Stats from './Statistics/Stats'
 import HomeApp from "./Home/HomeApp";
 import FanSignin from "./Register/FanSignin";
 import OrgSignin from "./Register/OrgSignin";
@@ -29,7 +31,7 @@ function App() {
         <Header />
         
         <div
-        className="md:mx-24">
+        className="md:mx-24 bg-rose-100">
             <Routes>
                 <Route exact path="/" element={<HomeApp />}></Route>
                 <Route exact path="/orgsignin" element={<OrgSignin />}></Route>
@@ -38,6 +40,8 @@ function App() {
                 <Route exact path="/login" element={<Login />}></Route>
                 <Route exact path="/history" element={<History />}></Route>
                 <Route exact path="/post" element={<Post />}></Route>
+                <Route exact path='/favourites' element={<Favourites/>}></Route>
+                <Route exact path='/quiz' element={<Quiz/>}></Route>
                 <Route exact path="/stats" element={<Stats />}></Route>
                 <Route exact path="/sports" element={<SportsLayout />}></Route>
                 <Route exact path="/sportarticle" element={<SportsArticle />}></Route>
