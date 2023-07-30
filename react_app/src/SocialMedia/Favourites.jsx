@@ -9,7 +9,7 @@ const Favourites = () => {
 	const [tab1,settab1]=useState(true);
 	const [tab2,settab2]=useState(true);
 	const [currceleb,setcurrceleb]=useState([{fname:"",lname:'',email:''}])
-	const [disimg,setdisimg]=useState([]);
+	const [disimg,setdisimg]=useState([{img:"",_id:""}]);
 	const [allcelebs,setallcelebs]=useState([{fname:'',lname:'',email:''}]);
 	const [celebfollowers,setcelebfollowers]=useState(0);
 	const [celebfollowings,setcelebfollowings]=useState(0);
@@ -39,9 +39,13 @@ const Favourites = () => {
 
 						const email=localStorage.getItem('Email');
 						const favres=await axios.get(`http://localhost:8000/followingfan?email=${email}`);
+						console.log("HIs")
 						console.log(favres.data.followings);
-						setfollowings(favres.data.followings)
-
+						if(favres.data.followings!==undefined){
+							setfollowings([...favres.data.followings])
+						}
+							
+							
 						const celebs=await axios.get(`http://localhost:8000/getOrgs`);
 						console.log(celebs);
 					}
