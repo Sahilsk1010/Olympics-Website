@@ -2,6 +2,12 @@ import React, { useState } from 'react'
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './imageMove.css';
+import { useEffect } from 'react';
+import photo1 from  '../../images/9.jpg'
+import photo2 from  '../../images/10.jpg'
+import photo3 from  '../../images/11.jpg'
+import photo4 from  '../../images/12.jpg'
+import photo5 from  '../../images/8.jpg'
 
 import UniCarousel from './UniCarousel';
 
@@ -24,6 +30,7 @@ const Hero = () => {
 
   const [img,setImg]=useState("");
 
+
   const handleCallback=(childimg)=>{
     setImg(childimg);
   }
@@ -38,18 +45,17 @@ const Hero = () => {
       <div className='carousel-container'>
 
       <Carousel responsive={responsive} swipeable={false} draggable={false} showDots={true} ssr={true} autoPlaySpeed={1000} keyBoardControl={true} className='mb-5'>
-        <UniCarousel parentCallback={handleCallback}/>
-        <UniCarousel parentCallback={handleCallback} />
-        <UniCarousel parentCallback={handleCallback}/>
-        <UniCarousel parentCallback={handleCallback}/>
-        <UniCarousel parentCallback={handleCallback}/>
+        <UniCarousel myphoto={photo1} parentCallback={handleCallback}/>
+        <UniCarousel myphoto={photo2} parentCallback={handleCallback} />
+        <UniCarousel myphoto={photo3} parentCallback={handleCallback}/>
+        <UniCarousel myphoto={photo4} parentCallback={handleCallback}/>
+        <UniCarousel myphoto={photo5} parentCallback={handleCallback}/>
       </Carousel>
 
       {
         img!==""?
           <div className='popup-img'>
-            <span onClick={removeZoom}>&times;</span>
-            <img src={img} alt='Img'></img>
+            <img src={photo1} alt='Img'></img>
           </div>
           :""
       }

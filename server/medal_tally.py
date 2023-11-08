@@ -94,3 +94,12 @@ def menvsw(df):
     final.fillna(0, inplace=True)
     return final
 
+
+def height_weight(df,sport):
+    athlete_df = df.drop_duplicates(subset=['Name','Region'])
+    athlete_df['Medal'].fillna('No Medal',inplace=True)
+    if sport != 'Overall':
+        temp = athlete_df[athlete_df['Sport'] == sport]
+        return temp
+    else:
+        return athlete_df

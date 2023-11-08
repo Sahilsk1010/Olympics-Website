@@ -311,3 +311,14 @@ if option == 'Overall-Athlete analysis':
     final = medal_tally.menvsw(df)
     fig = px.line(final, x="Year", y=["Male", "Female"])
     st.plotly_chart(fig)
+
+
+    st.title("Height vs Weight")
+    sport_list = df['Sport'].unique().tolist()
+    sport_list.sort()
+    sport_list.insert(0, 'Overall')
+    selected_sport = st.selectbox('Select a sport', sport_list)
+    tempdf = medal_tally.height_weight(df,selected_sport)
+
+    fig= sns.scatterplot(x=tempdf['Height'],y=tempdf['Weight'],hue=tempdf['Medal'],style=tempdf['Sex'],s=30)
+    st.pyplot(fig.figure)

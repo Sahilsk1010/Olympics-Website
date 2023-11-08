@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import './imageMove.css';
 
 import Modal from './Modal';
-import photo from '../../img/dummy.jpg';
 
 const Text=styled.p`
   display:-webkit-box;
@@ -13,7 +12,7 @@ const Text=styled.p`
 `;
 
 
-const UniCarousel = ({parentCallback}) => {
+const UniCarousel = ({photo,parentCallback}) => {
 
   const [click,setclick]=useState(false);
   const [img,setimg]=useState("");
